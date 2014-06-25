@@ -8,6 +8,8 @@ end
 
 include_recipe "apt"
 
+include_recipe "ssh-keys"
+
 include_recipe "java::default"
 include_recipe "hadoop::default"
 include_recipe "hadoop::hadoop_hdfs_namenode"
@@ -15,10 +17,14 @@ include_recipe "hadoop::hadoop_hdfs_datanode"
 
 execute "Initialize NameNode" do
   command 'service hadoop-hdfs-namenode init'
+  action :nothing
+  subscribes :run, "package[hadoop-hdfs-datanode]"
 end
 
 service "hadoop-hdfs-namenode" do
-  action [ :enable, :start ]
+  subscribes :enable, "execute[Initialize NameNode]"
+  subscribes :start, "execute[Initialize NameNode]"
+  action :nothing
 end
 
 service "hadoop-hdfs-datanode" do
