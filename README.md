@@ -32,3 +32,5 @@ Then, edit the following file
 https://github.com/pbl-cloud/hadoop-node-setup/blob/master/attributes/default.rb
 
 to add the `id` you chose in the `vagrant => ['daniel']` array.
+
+See [a5ac56488...](https://github.com/pbl-cloud/hadoop-node-setup/commit/a5ac564880046c636067f627d0ecb92135c8db0d) for a setup example.
